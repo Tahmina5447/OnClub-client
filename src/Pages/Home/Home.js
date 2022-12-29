@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { UilThumbsUp } from '@iconscout/react-unicons'
 import { UilCommentAltDots } from '@iconscout/react-unicons'
@@ -14,13 +14,16 @@ import profile4 from '../../images/profile4.jpg'
 import profile5 from '../../images/profile5.jpg'
 import profile6 from '../../images/profile6.jpg'
 import { Link } from 'react-router-dom';
+import SinglePost from '../../Component/SinglePost/SinglePost';
+import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 const Home = () => {
     const [allPost, setAllPost] = useState([])
     const [loading, setLoading] = useState(true)
+    const {user}=useContext(AuthContext)
 
     useEffect(() => {
 
-        fetch('http://localhost:5000/allPostHome')
+        fetch('https://onclub-server.vercel.app/allPostHome')
             .then(res => res.json())
             .then(data => {
                 setLoading(false)
@@ -49,7 +52,7 @@ const Home = () => {
                     image
                 }
 
-                fetch('http://localhost:5000/posts', {
+                fetch('https://onclub-server.vercel.app/posts', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -101,24 +104,9 @@ const Home = () => {
                 </div>
                 <div className='mx-auto'>
                     {
-                        allPost.map(post => <div className='border border-orange-600 my-6 rounded w-full'>
-                            <div className='p-6 pb-0'>
-                                <img className='mx-auto' src={post.image} alt="" />
-                            </div>
-                            <div className='m-6 mb-0 border-t border-b py-2 flex'>
-                                <div className='flex items-center mr-8'>
-                                    <span className='mr-1 0'>{post.like}</span>
-                                    <UilThumbsUp></UilThumbsUp>
-                                </div>
-                                <div className='flex items-center'>
-                                    <span className='mr-1 '></span>
-                                    <UilCommentAltDots></UilCommentAltDots>
-                                </div>
-                            </div>
-
-                            <div className='p-6'>{post.post}<span className='text-gray-400'>....</span><button className='text-orange-800'><Link to={`/postDetails/${post._id}`}>See Details</Link></button></div>
-                        </div>)
+                        allPost.map(singlepost =><SinglePost singlepost={singlepost} ></SinglePost>)
                     }
+                     
                 </div>
             </div>
             <div className='w-1/3 mx-auto my-6 hidden lg:block'>

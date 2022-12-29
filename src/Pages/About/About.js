@@ -9,7 +9,7 @@ const About = () => {
   
 
     useEffect(() => {
-        fetch(`http://localhost:5000/profile?email=${user?.email}`, {
+        fetch(`https://onclub-server.vercel.app/profile?email=${user?.email}`, {
 
         })
             .then(res => res.json()
@@ -33,7 +33,7 @@ const About = () => {
             university,
             address
         }
-        fetch(`http://localhost:5000/updateInfo/${_id}`, {
+        fetch(`https://onclub-server.vercel.app/updateInfo/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

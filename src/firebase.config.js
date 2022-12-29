@@ -4,13 +4,16 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+
+
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBAmXjuHWp8bt36roYp-r_oDu0QrNiwxrI",
-  authDomain: "onclub-a7d3f.firebaseapp.com",
-  projectId: "onclub-a7d3f",
-  storageBucket: "onclub-a7d3f.appspot.com",
-  messagingSenderId: "203397524120",
-  appId: "1:203397524120:web:0d414d10b98f90491a3eed"
+  apiKey:process.env.REACT_APP_apiKey,
+  authDomain:process.env.REACT_APP_authDomain,
+  projectId:process.env.REACT_APP_projectId,
+  storageBucket:process.env.REACT_APP_storageBucket,
+  messagingSenderId:process.env.REACT_APP_messagingSenderId,
+  appId:process.env.REACT_APP_appId
 };
 
 // Initialize Firebase

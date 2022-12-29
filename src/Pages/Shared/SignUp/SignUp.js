@@ -1,7 +1,6 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 import googleLogo from '../../../images/googleLogo.png'
@@ -21,7 +20,8 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
-                // navigate(from, { replace: true })
+                saveUser(user?.displayName,user?.email)
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.error(error)
@@ -41,7 +41,6 @@ const SignUp = () => {
                     
 
                 }
-                // console.log(userInfo);
                 updateUser(userInfo)
                     .then(() => {
                         saveUser(data.name, data.email);
@@ -54,15 +53,13 @@ const SignUp = () => {
             .catch(error => {
                 console.log(error)
                 setErrormessage(error.message)
-                // toast.success('Successfully Create a User')
             });
     };
 
 
     const saveUser = (name, email) => {
         const user = { name, email };
-        // console.log(user)
-        fetch('http://localhost:5000/users', {
+        fetch('https://onclub-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -71,11 +68,7 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data=> console.log(data))
-            // .then(data => {
-            //     setCreatedUserEmail(email);
-            //     navigate(from, { replace: true })
-            //     console.log(data);
-            // })
+            
     }
 
     return (

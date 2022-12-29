@@ -20,6 +20,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
+                saveUser(user?.displayName,user?.email)
                 navigate(from, { replace: true })
 
             })
@@ -46,6 +47,20 @@ const Login = () => {
 
 
     };
+
+    const saveUser = (name, email) => {
+        const user = { name, email };
+        fetch('https://onclub-server.vercel.app/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data=> console.log(data))
+            
+    }
 
     return (
         <div>

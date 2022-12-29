@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home></Home>
+                element: <PrivateRoute><Home></Home></PrivateRoute>
             },
             {
                 path: '/login',
@@ -30,11 +30,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/media',
-                element: <Media></Media>
+                element: <PrivateRoute><Media></Media></PrivateRoute>
             },
             {
                 path: '/message',
-                element: <Message></Message>
+                element: <PrivateRoute><Message></Message></PrivateRoute>
             },
             {
                 path: '/about',
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/postDetails/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/postDetails/${params.id}`),
+                loader: ({ params }) => fetch(`https://onclub-server.vercel.app/postDetails/${params.id}`),
                 element: <PrivateRoute><PostDetails></PostDetails></PrivateRoute>
             }
         ]

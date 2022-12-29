@@ -15,11 +15,12 @@ const Navbar = () => {
         toast.success('Log Out Done!')
     }
     const menuItems = <React.Fragment>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/media'>Media</Link></li>
+
         {
             user?.email ?
                 <>
+                    <li><Link to='/'>Home</Link></li>
+                    <li><Link to='/media'>Media</Link></li>
                     <li><Link to='/message'>Message</Link></li>
                     <li><Link to='/about'>About</Link></li>
 
@@ -28,8 +29,8 @@ const Navbar = () => {
 
                 :
                 <>
-                    <li><Link to='/login'>Login</Link></li>
-                    {/* <li><Link to='/signup'>Signup</Link></li> */}
+                    {/* <li><Link to='/login'>Login</Link></li> */}
+                    
                 </>
         }
 

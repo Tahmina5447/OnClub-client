@@ -1,25 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UilPen } from '@iconscout/react-unicons'
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
+import { useQuery } from 'react-query';
+import { toast } from 'react-hot-toast';
 
 const About = () => {
     const { user } = useContext(AuthContext)
-    const [profile, setProfile] = useState([])
-    const {_id,name,email,university,address}=profile;
-  
+    // const [profile, setProfile] = useState([])
+    
+    
 
-    useEffect(() => {
-        fetch(`https://onclub-server.vercel.app/profile?email=${user?.email}`, {
+    const {data:profile=[0],refetch}=useQuery({
+        queryKey:['appointmentData'],
+        queryFn:()=>fetch(`https://onclub-server.vercel.app/profile?email=${user?.email}`)
+        .then(res=>res.json())
+    })
+ const {_id,name,email,university,address}=profile[0];
 
-        })
-            .then(res => res.json()
-            )
-            .then(data => {
-                // console.log(data)
-                setProfile(data[0])
-            })
-            .catch(err => console.error(err))
-    }, [user?.email])
+    // useEffect(() => {
+    //     fetch(`https://onclub-server.vercel.app/profile?email=${user?.email}`, {
+
+    //     })
+    //         .then(res => res.json()
+    //         )
+    //         .then(data => {
+    //             // console.log(data)
+    //             setProfile(data[0])
+    //         })
+    //         .catch(err => console.error(err))
+    // }, [user?.email])
 
     const editProfile = (event)=> {
         event.preventDefault();
@@ -33,6 +42,7 @@ const About = () => {
             university,
             address
         }
+        console.log(updatedInfo)
         fetch(`https://onclub-server.vercel.app/updateInfo/${_id}`, {
             method: 'PUT',
             headers: {
@@ -45,8 +55,9 @@ const About = () => {
         .then(data=>{
             console.log(data);
             if (data.modifiedCount > 0) {
-                setProfile(updatedInfo)
+                refetch()
             }
+            toast.success('Updated Successful')
         })
         .catch(error=>console.log(error))
 
@@ -90,17 +101,18 @@ const About = () => {
                         <label htmlFor="modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                         <p>Update your profile information</p>
                         <form onSubmit={editProfile}>
+                        {/*  */}
                             <div>
                                 <input className='input input-bordered input-sm my-3 ' type="text" name='name' placeholder='Name' defaultValue={name} />
                             </div>
                             <div>
-                                <input className='input input-bordered input-sm my-3 ' type="email" name="email" placeholder='Email' defaultValue={email}/>
+                                <input className='input input-bordered input-sm my-3 ' type="email" name="email" placeholder='Email'defaultValue={email} />
                             </div>
                             <div>
-                                <input className='input input-bordered input-sm my-3 ' type="text" name='university' placeholder='University' defaultValue={university}/>
+                                <input className='input input-bordered input-sm my-3 ' type="text" name='university' placeholder='University' defaultValue={university} />
                             </div>
                             <div>
-                                <input className='input input-bordered input-sm my-3 ' type="text" name="address" placeholder='Address' defaultValue={address}/>
+                                <input className='input input-bordered input-sm my-3 ' type="text" name="address" placeholder='Address'defaultValue={address} />
                             </div>
 
 

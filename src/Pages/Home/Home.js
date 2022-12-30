@@ -49,7 +49,8 @@ const Home = () => {
                 const image = data.data.display_url;
                 const postInfo = {
                     post,
-                    image
+                    image,
+                    like:0
                 }
 
                 fetch('https://onclub-server.vercel.app/posts', {

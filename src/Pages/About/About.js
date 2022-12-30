@@ -6,10 +6,6 @@ import { toast } from 'react-hot-toast';
 
 const About = () => {
     const { user } = useContext(AuthContext)
-    // const [profile, setProfile] = useState([])
-    
-    
-
     const {data:profile=[0],refetch}=useQuery({
         queryKey:['appointmentData'],
         queryFn:()=>fetch(`https://onclub-server.vercel.app/profile?email=${user?.email}`)
@@ -103,16 +99,16 @@ const About = () => {
                         <form onSubmit={editProfile}>
                         {/*  */}
                             <div>
-                                <input className='input input-bordered input-sm my-3 ' type="text" name='name' placeholder='Name' defaultValue={name} />
+                                <input className='input input-bordered input-sm my-3 ' type="text" name='name' placeholder='Name' defaultValue={name} required />
                             </div>
                             <div>
-                                <input className='input input-bordered input-sm my-3 ' type="email" name="email" placeholder='Email'defaultValue={email} />
+                                <input className='input input-bordered input-sm my-3 ' type="email" name="email" placeholder='Email' disabled defaultValue={email} />
                             </div>
                             <div>
-                                <input className='input input-bordered input-sm my-3 ' type="text" name='university' placeholder='University' defaultValue={university} />
+                                <input className='input input-bordered input-sm my-3 ' type="text" name='university' placeholder='University' required defaultValue={university} />
                             </div>
                             <div>
-                                <input className='input input-bordered input-sm my-3 ' type="text" name="address" placeholder='Address'defaultValue={address} />
+                                <input className='input input-bordered input-sm my-3 ' type="text" name="address" placeholder='Address' required defaultValue={address} />
                             </div>
 
 
